@@ -1,0 +1,7 @@
+digraph G {
+/* El padre tiene un hijo y
+una hija: */
+padre -> hijo;
+padre -> hija;
+padre -> hija2;
+}

@@ -24,12 +24,24 @@
     <ClCompile Include="ListaCaracteres.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NodoLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PilaLog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Nodo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ListaCaracteres.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NodoLog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PilaLog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

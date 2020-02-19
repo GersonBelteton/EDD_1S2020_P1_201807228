@@ -73,17 +73,22 @@ public:
 	void eliminarEnMedio(int x, int y) {
 
 		Nodo<char>* aux = primero;
-		
-		while (aux->getPosX() != x || aux->getPosY() != y) {
+		if (x >= getLastPositionX() && y >= getLastPositionY()) {
+			eliminarUltimo();
+		}
+		else {
+			while (aux->getPosX() != x || aux->getPosY() != y) {
 
-			aux = aux->getSiguiente();
+				aux = aux->getSiguiente();
+			}
+
+			aux->getAnterior()->setSiguiente(aux->getSiguiente());
+			aux->getSiguiente()->setAnterior(aux->getAnterior());
+			actualizarPosicion();
+
+			size--;
 		}
 
-		aux->getAnterior()->setSiguiente(aux->getSiguiente());
-		aux->getSiguiente()->setAnterior(aux->getAnterior());
-		actualizarPosicion();
-
-		size--;
 	}
 
 	int getSize() {
@@ -105,6 +110,7 @@ public:
 				ultimo = ultimo->getAnterior();
 				ultimo->setSiguiente(NULL);
 				size--;
+				actualizarPosicion();
 			}
 			
 		}
@@ -208,8 +214,25 @@ public:
 			nuevo->setAnterior(ultimo);
 			ultimo = nuevo;
 			size++;
+			actualizarPosicion();
 
 		}
+	}
+
+
+
+	string toString() {
+		string cadena = "";
+		Nodo<char>* aux = primero;
+
+		while (aux != NULL) {
+			cadena = cadena + aux->getDato();
+			aux = aux->getSiguiente();
+		}
+
+
+		return cadena;
+
 	}
 
 	void insertarFinalNodo(Nodo<char>* nuevo) {
@@ -237,6 +260,7 @@ public:
 			nuevo->setAnterior(ultimo);
 			ultimo = nuevo;
 			size++;
+			actualizarPosicion();
 
 		}
 	}
@@ -246,6 +270,14 @@ public:
 	}
 	int getLastPositionY() {
 		return ultimo->getPosY();
+	}
+
+	Nodo<char>* getPrimero() {
+		return primero;
+	}
+
+	Nodo<char>* getUltimo() {
+		return ultimo;
 	}
 
 	void actualizarPosicion() {

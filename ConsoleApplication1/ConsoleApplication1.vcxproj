@@ -154,10 +154,14 @@
     <ClCompile Include="ConsoleApplication1.cpp" />
     <ClCompile Include="ListaCaracteres.cpp" />
     <ClCompile Include="Nodo.cpp" />
+    <ClCompile Include="NodoLog.cpp" />
+    <ClCompile Include="PilaLog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ListaCaracteres.h" />
     <ClInclude Include="Nodo.h" />
+    <ClInclude Include="NodoLog.h" />
+    <ClInclude Include="PilaLog.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

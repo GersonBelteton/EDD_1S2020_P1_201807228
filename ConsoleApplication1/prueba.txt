@@ -1,0 +1,4 @@
+Un editor de textos debe ser capaz de abrir archivos y editarlos, y posteriormente guardarlos si
+se desea, por ello la aplicación deberá ser capaz de abrir archivos, para esta funcionalidad se
+deberá ingresar la ruta del archivo que se desea editar, y se mostrará el contenido del archivo en
+el editor de textos, permitiendo realizar las distintas acciones que se deseen sobre el mismo.
