@@ -1,0 +1,6 @@
+digraph G {
+ node[shape = box];nodo0[label = " Archivo 1 prueba.txt"];
+nodo1[label = " Archivo 2 grafo2.txt"];
+nodo0->nodo1;
+nodo1 ->nodo0;
+}

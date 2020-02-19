@@ -7,6 +7,7 @@
 #include "Nodo.h";
 #include "NodoLog.h";
 #include "ListaCaracteres.h";
+#include "ListaArchivos.h";
 #include "PilaLog.h";
 #include <vector>;
 #include <fstream>;
@@ -15,20 +16,24 @@
 
 using namespace std;
 
+
+void archivosRecientes();
 void menu();
-void abrirArchivo();
+void abrirArchivo(string, int);
 void prueba();
 void imprimir(string);
 void crearArchivo(ListaCaracteres);
 void encabezadoCrearArchivo();
 ListaCaracteres toList(string);
+
+ListaArchivos la;
 int main() {
 
 		system("color 1f");
 		ListaCaracteres l;
 		//l.buscarRemplazar("Hola Mundo");
 		menu();
-
+		
 
 	system("pause");
 	return 0;
@@ -63,7 +68,15 @@ void imprimir(string cadena, ListaCaracteres lc) {
 void menu() {
 	int var = 0;
 	ListaCaracteres lc;
+	string ruta;
 	do {
+		cout << "Universidad de San Carlos de Guatemala" << endl;
+		cout << "Facultad de Ingenieria" << endl;
+		cout << "Estructuras de datos" << endl;
+		cout << "Practica 1" << endl;
+		cout << "Gerson Alejandro Beltetón Urbina" << endl;
+		cout << "201807228"<<endl<<endl<<endl;
+
 		cout << "Elige una opcion" << endl << endl;
 		cout << "1. Crear Archivo" << endl;
 		cout << "2. Abrir Archivo" << endl;
@@ -78,12 +91,21 @@ void menu() {
 	case 1:
 
 		crearArchivo(lc);
+		menu();
 		break;
 	case 2:
-		abrirArchivo();
+	
+
+		cout << endl << "Escribe la ruta del Archivo: ";
+		cin >> ruta;
+		abrirArchivo(ruta, 0);
+		menu();
 		break;
 	case 3:
-		prueba();
+
+		archivosRecientes();
+		menu();
+		//prueba();
 		break;
 	case 4:
 
@@ -94,6 +116,73 @@ void menu() {
 
 }
 
+void archivosRecientes() {
+	char opcion = ' ';
+	int ascii = 0;
+	int num = 0;
+	do {
+		system("cls");
+		cout << "Archivos Recientes" << endl << endl;
+		la.mostarLista();
+
+		cout << endl << "X. Reporte";
+
+		opcion = _getch();
+		ascii = opcion;
+		num = opcion - '0';
+
+		
+	
+		 if (opcion == 'X') {
+			//reporte archivos
+			ofstream archivo;
+			NodoArchivo* nodo = la.getPrimero();
+
+			string a;
+
+			a = "";
+
+			archivo.open("grafoArchivo.txt", ios::out);
+			if (archivo.fail()) {
+				cout << "no se pudo abrir";
+				exit(1);
+			}
+
+
+
+			a = a + "digraph G {\n node[shape = box];";
+			for (int i = 0; i < la.getSize(); i++) {
+				a = a + "nodo" + to_string(i) + "[label = \" " +"Archivo "+to_string(nodo->getId())+" "+nodo->getRuta() + "\"];\n";
+				nodo = nodo->getSiguiente();
+			}
+
+			for (int i = 0; i < la.getSize() - 1; i++) {
+				a = a + "nodo" + to_string(i) + "->nodo" + to_string(i + 1) + ";\n";
+				
+			}
+			a = a + "nodo" + to_string(la.getSize() - 1) + " ->nodo0;\n";
+			a = a + "}";
+			cout << a;
+			archivo << a;
+
+			archivo.close();
+			system("dot.exe -Tjpg grafoArchivo.txt -o grafoArchivo.jpg");
+			system("grafoArchivo.jpg");
+
+
+		}
+		 else if (ascii != 24) {
+			 abrirArchivo("", num);
+			 ascii = 24;
+		 }
+	} while (ascii != 24);
+
+	/*char c = '1';
+	int i = c - '0';*/
+
+
+
+}
 void prueba() {
 	int a;
 	system("cls");
@@ -108,19 +197,21 @@ void encabezadoCrearArchivo() {
 
 	cout << "Crear Archivo" << endl << endl;
 	cout << "Buscar y remplazar (ctrl+w)           Generar Reporte(ctrl+c)           Guardar(ctrl+s)"<< endl;             
-	cout << "------------------------------------------------------------------------------------------------------------" << endl;
+	cout << "------------------------------------------------------------------------------------------------------------------" << endl;
 
 	
 }
 
-void abrirArchivo(){
+void abrirArchivo(string ruta, int id){
 	ifstream archivo;
 	string texto;
 	string linea;
-	string ruta;
+	NodoArchivo* aux;
+	if (id != 0) {
+		aux = la.buscar(id);
+		ruta = aux->getRuta();
+	}
 
-	cout <<endl << "Escribe la ruta del Archivo: ";
-	cin >> ruta;
 
 	archivo.open(ruta,ios::in);
 	if (archivo.fail()) {
@@ -135,13 +226,15 @@ void abrirArchivo(){
 	
 	}
 //	cout << texto << endl;
-	
+
 
 	archivo.close();
 	ListaCaracteres l = toList(texto);
 	//imprimir("", l);
+	la.insertarUltimo(ruta, ruta);
 	crearArchivo(l);
-
+	system("cls");
+	//menu();
 
 }
 void crearArchivo(ListaCaracteres lc) {
@@ -168,7 +261,7 @@ void crearArchivo(ListaCaracteres lc) {
 
 
 
-		//https://elrincondelc.com/foros/viewtopic.php?t=3047
+	
 		//cout << ascii;
 		if (ascii == 8) {
 			//cout << "borrar";
@@ -500,7 +593,7 @@ void crearArchivo(ListaCaracteres lc) {
 
 					archivo.close();
 					system("dot.exe -Tjpg grafoLista.txt -o grafoLista.jpg");
-					system("grafoLIsta.jpg");
+					system("grafoLista.jpg");
 				}
 				else if (opcion == 2) {
 					ofstream archivo;
@@ -573,21 +666,7 @@ void crearArchivo(ListaCaracteres lc) {
 
 
 			}
-			else if (caracter == '*') {
-				system("cls");
-				lc.mostrarLista();
-				cout << lc.primerCaracter() << lc.ultimoCaracter();
-			}
-			else if (caracter == '+') {
-				//lc.imprimirListaPos();
-
-				cout << endl << "no revertido" << endl;
-				nrev.mostrarPila();
-
-
-				cout << endl << "revertido" << endl;
-				rev.mostrarPila();
-			}
+			
 			else {
 
 				cadena = cadena + caracter;
@@ -695,7 +774,7 @@ void crearArchivo(ListaCaracteres lc) {
 		}
 
 		system("cls");
-		menu();
+		
 	}
 
 ListaCaracteres toList(string cadena){

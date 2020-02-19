@@ -30,6 +30,12 @@
     <ClCompile Include="PilaLog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NodoArchivo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ListaArchivos.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Nodo.h">
@@ -42,6 +48,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PilaLog.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NodoArchivo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ListaArchivos.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
